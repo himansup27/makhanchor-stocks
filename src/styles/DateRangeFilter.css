@@ -1,0 +1,323 @@
+/* src/styles/DateRangeFilter.css - MOBILE FIXED */
+
+/* ========== DATE FILTER ========== */
+.date-filter {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+}
+
+/* ========== DATE FILTER HEADER ========== */
+.date-filter-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #D4AF37;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.date-filter-header svg {
+  stroke-width: 2;
+}
+
+/* ========== DATE FILTER OPTIONS ========== */
+.date-filter-options {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #D4AF37 rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Prevent wrapping */
+  flex-wrap: nowrap;
+}
+
+/* ========== CUSTOM SCROLLBAR ========== */
+.date-filter-options::-webkit-scrollbar {
+  height: 6px;
+}
+
+.date-filter-options::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.date-filter-options::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #D4AF37, #FFD700);
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.date-filter-options::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #FFD700, #D4AF37);
+}
+
+/* ========== FILTER OPTION ========== */
+.filter-option {
+  /* Fixed minimum width for consistency */
+  min-width: 120px;
+  padding: 0.875rem 1.5rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #D0D0D0;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  /* Prevent shrinking */
+  flex-shrink: 0;
+}
+
+.filter-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.filter-option:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(212, 175, 55, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+}
+
+.filter-option:hover::before {
+  left: 100%;
+}
+
+.filter-option:active {
+  transform: translateY(0);
+}
+
+/* ========== ACTIVE FILTER OPTION ========== */
+.filter-option.active {
+  background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+  color: #0A0A0A;
+  border-color: transparent;
+  box-shadow: 
+    0 4px 15px rgba(212, 175, 55, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  font-weight: 700;
+}
+
+.filter-option.active::before {
+  display: none;
+}
+
+.filter-option.active:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(212, 175, 55, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* ========== SCROLL INDICATOR ========== */
+.date-filter::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 40px;
+  height: 100%;
+  background: linear-gradient(to left, rgba(10, 10, 10, 0.8), transparent);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.date-filter.has-scroll::after {
+  opacity: 1;
+}
+
+/* ========== CUSTOM DATE PICKER ========== */
+.custom-date-picker {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  animation: slideDown 0.3s ease;
+}
+
+/* ========== DATE INPUT ========== */
+.date-input {
+  padding: 0.75rem 1rem;
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  background: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #FFFFFF;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  outline: none;
+  font-family: inherit;
+  flex: 1;
+  min-width: 150px;
+}
+
+.date-input:focus {
+  border-color: #D4AF37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+  background: rgba(15, 15, 15, 0.8);
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  filter: invert(0.7) sepia(1) saturate(5) hue-rotate(10deg);
+  cursor: pointer;
+}
+
+/* ========== DATE SEPARATOR ========== */
+.date-separator {
+  color: #A0A0A0;
+  font-weight: 600;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== TABLET RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .filter-option {
+    min-width: 110px;
+    padding: 0.75rem 1.25rem;
+  }
+}
+
+/* ========== MOBILE RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .date-filter {
+    padding: 0 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .date-filter-header {
+    font-size: 0.875rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .date-filter-options {
+    gap: 0.625rem;
+    padding-bottom: 1rem;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .filter-option {
+    /* Consistent width on mobile */
+    min-width: 100px;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 10px;
+  }
+
+  .custom-date-picker {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .date-input {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .date-separator {
+    text-align: center;
+  }
+
+  /* Show scrollbar hint on mobile */
+  .date-filter-options::-webkit-scrollbar {
+    height: 4px;
+  }
+}
+
+/* ========== SMALL MOBILE ========== */
+@media (max-width: 480px) {
+  .date-filter {
+    padding: 0 0.5rem;
+  }
+
+  .date-filter-header {
+    font-size: 0.8rem;
+  }
+
+  .date-filter-options {
+    gap: 0.5rem;
+    padding-bottom: 0.875rem;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .filter-option {
+    /* Smaller on very small screens */
+    min-width: 90px;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.8rem;
+    border-radius: 8px;
+  }
+}
+
+/* ========== ACCESSIBILITY ========== */
+.filter-option:focus-visible,
+.date-input:focus-visible {
+  outline: 2px solid #D4AF37;
+  outline-offset: 2px;
+}
+
+/* Keyboard navigation hint */
+.filter-option:focus {
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+}
+
+/* ========== PRINT STYLES ========== */
+@media print {
+  .date-filter {
+    display: none;
+  }
+}
+
+/* ========== TOUCH OPTIMIZATIONS ========== */
+@media (hover: none) and (pointer: coarse) {
+  /* Touch devices */
+  .filter-option {
+    min-height: 44px; /* Apple's recommended touch target */
+    padding: 0.75rem 1.25rem;
+  }
+
+  .filter-option:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+}

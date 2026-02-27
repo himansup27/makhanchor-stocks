@@ -1,0 +1,251 @@
+/* src/styles/TotalStock.css */
+
+/* ========== TOTAL STOCK HERO ========== */
+.total-stock-hero {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  margin: 2rem auto;
+  max-width: 700px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* .total-stock-hero.hidden {
+  transform: translateY(-30px);
+  opacity: 0;
+  pointer-events: none;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+} */
+
+/* ========== STOCK LABEL ========== */
+.stock-label {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #A0A0A0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* ========== STOCK VALUE CONTAINER ========== */
+.stock-value-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+/* ========== STOCK ICON ========== */
+.stock-icon {
+  color: #D4AF37;
+  animation: float 3s ease-in-out infinite;
+  stroke-width: 2;
+}
+
+/* ========== STOCK VALUE ========== */
+.stock-value {
+  font-size: 5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+}
+
+/* ========== STOCK UNIT ========== */
+.stock-unit {
+  font-size: 1.25rem;
+  color: #A0A0A0;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* ========== STOCK TREND ========== */
+.stock-trend {
+  margin: 1.5rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.trend-positive,
+.trend-negative {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.trend-positive {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+}
+
+.trend-negative {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+}
+
+.trend-positive svg,
+.trend-negative svg {
+  stroke-width: 2.5;
+}
+
+/* ========== STOCK DETAILS ========== */
+.stock-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.stock-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(26, 26, 26, 0.5);
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  min-width: 140px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ========== DETAIL LABEL ========== */
+.detail-label {
+  font-size: 0.875rem;
+  color: #A0A0A0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+/* ========== DETAIL VALUE ========== */
+.detail-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1;
+}
+
+/* ========== DETAIL DIVIDER ========== */
+.stock-detail-divider {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(212, 175, 55, 0.3),
+    transparent
+  );
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .total-stock-hero {
+    padding: 2rem 1rem;
+  }
+
+  .stock-value {
+    font-size: 3.5rem;
+  }
+
+  .stock-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .stock-unit {
+    font-size: 1rem;
+  }
+
+  .stock-details {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stock-detail-divider {
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(212, 175, 55, 0.3),
+      transparent
+    );
+  }
+
+  .stock-detail-item {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .stock-value {
+    font-size: 2.5rem;
+  }
+
+  .stock-value-container {
+    gap: 0.75rem;
+  }
+
+  .stock-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .stock-unit {
+    font-size: 0.9rem;
+  }
+
+  .trend-positive,
+  .trend-negative {
+    font-size: 0.9rem;
+    padding: 0.4rem 1.25rem;
+  }
+
+  .detail-value {
+    font-size: 1.25rem;
+  }
+}
+
+/* ========== PRINT STYLES ========== */
+@media print {
+  .total-stock-hero {
+    page-break-inside: avoid;
+  }
+
+  .stock-trend {
+    display: none;
+  }
+}
