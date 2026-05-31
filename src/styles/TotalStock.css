@@ -9,16 +9,6 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* .total-stock-hero.hidden {
-  transform: translateY(-30px);
-  opacity: 0;
-  pointer-events: none;
-  height: 0;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-} */
-
 /* ========== STOCK LABEL ========== */
 .stock-label {
   font-size: 0.875rem;
@@ -56,7 +46,6 @@
   background-clip: text;
   line-height: 1;
   letter-spacing: -0.02em;
-  text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
 }
 
 /* ========== STOCK UNIT ========== */
@@ -67,43 +56,68 @@
   letter-spacing: 0.05em;
 }
 
-/* ========== STOCK TREND ========== */
-.stock-trend {
-  margin: 1.5rem 0;
-  display: flex;
-  justify-content: center;
-}
-
-.trend-positive,
-.trend-negative {
+/* ========== TABS ========== */
+.stock-tabs {
   display: inline-flex;
-  align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1.5rem;
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 16px;
+  padding: 5px;
+  margin: 1.75rem auto 0;
+}
+
+.stock-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0.6rem 1.4rem;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  min-width: 145px;
+}
+
+.stock-tab .tab-label {
+  font-size: 0.82rem;
   font-weight: 600;
-  font-size: 1rem;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  color: #A0A0A0;
+  letter-spacing: 0.02em;
+  transition: color 0.25s ease;
+  white-space: nowrap;
 }
 
-.trend-positive {
-  background: rgba(16, 185, 129, 0.1);
-  color: #10b981;
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+.stock-tab .tab-sub {
+  font-size: 0.7rem;
+  color: #606060;
+  font-weight: 400;
+  transition: color 0.25s ease;
+  white-space: nowrap;
 }
 
-.trend-negative {
-  background: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+.stock-tab:hover:not(.active) {
+  background: rgba(212, 175, 55, 0.06);
 }
 
-.trend-positive svg,
-.trend-negative svg {
-  stroke-width: 2.5;
+.stock-tab:hover:not(.active) .tab-label {
+  color: #D4AF37;
+}
+
+.stock-tab.active {
+  background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
+}
+
+.stock-tab.active .tab-label {
+  color: #0A0A0A;
+  font-weight: 700;
+}
+
+.stock-tab.active .tab-sub {
+  color: rgba(10, 10, 10, 0.6);
 }
 
 /* ========== STOCK DETAILS ========== */
@@ -129,6 +143,7 @@
   min-width: 140px;
   justify-content: center;
   align-items: center;
+  transition: border-color 0.25s ease;
 }
 
 /* ========== DETAIL LABEL ========== */
@@ -146,6 +161,31 @@
   font-weight: 700;
   color: #FFFFFF;
   line-height: 1;
+  min-height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========== SKELETON LOADER ========== */
+.detail-skeleton {
+  display: inline-block;
+  width: 80px;
+  height: 1.4rem;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(212, 175, 55, 0.08) 0%,
+    rgba(212, 175, 55, 0.2) 50%,
+    rgba(212, 175, 55, 0.08) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 /* ========== DETAIL DIVIDER ========== */
@@ -162,12 +202,8 @@
 
 /* ========== ANIMATIONS ========== */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+  0%, 100% { transform: translateY(0px);   }
+  50%       { transform: translateY(-10px); }
 }
 
 /* ========== RESPONSIVE ========== */
@@ -187,6 +223,17 @@
 
   .stock-unit {
     font-size: 1rem;
+  }
+
+  .stock-tabs {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .stock-tab {
+    flex: 1;
+    min-width: unset;
+    padding: 0.55rem 0.75rem;
   }
 
   .stock-details {
@@ -228,10 +275,12 @@
     font-size: 0.9rem;
   }
 
-  .trend-positive,
-  .trend-negative {
-    font-size: 0.9rem;
-    padding: 0.4rem 1.25rem;
+  .stock-tab .tab-label {
+    font-size: 0.75rem;
+  }
+
+  .stock-tab .tab-sub {
+    font-size: 0.65rem;
   }
 
   .detail-value {
@@ -241,11 +290,6 @@
 
 /* ========== PRINT STYLES ========== */
 @media print {
-  .total-stock-hero {
-    page-break-inside: avoid;
-  }
-
-  .stock-trend {
-    display: none;
-  }
+  .total-stock-hero { page-break-inside: avoid; }
+  .stock-tabs { display: none; }
 }
