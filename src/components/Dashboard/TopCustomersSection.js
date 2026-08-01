@@ -31,7 +31,7 @@ const TopCustomersSection = ({ customers }) => {
               <div className="customer-header">
                 <span className="customer-name">{customer.name}</span>
                 <span className="customer-packets">
-                  {customer.packets.toFixed(1)} packets
+                  {customer.packets} packets
                 </span>
               </div>
               <div className="customer-progress">

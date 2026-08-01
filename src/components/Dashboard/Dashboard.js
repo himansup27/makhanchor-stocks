@@ -290,14 +290,15 @@ const Dashboard = ({ userName, onLogout }) => {
 
   const processTopCustomers = (sales) => {
     const customerMap = {};
-
+    console.log("ddhjhfh", sales);
+    
     sales.forEach(s => {
       const customer = s.customer || 'Walk-in';
       if (!customerMap[customer]) {
         customerMap[customer] = { name: customer, dabbas: 0, packets: 0 };
       }
       customerMap[customer].dabbas += toTotalDabbas(s.packets);
-      customerMap[customer].packets = customerMap[customer].dabbas / 16;
+      customerMap[customer].packets = s.packets;
     });
 
     return Object.values(customerMap)
