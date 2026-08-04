@@ -1,7 +1,7 @@
 // src/components/Dashboard/Dashboard.js - FIXED REPEATED API CALLS
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { api } from '../../utils/api';
-import { formatDate, toTotalDabbas } from '../../utils/helpers';
+import { formatDate, toTotalDabbas, fromTotalDabbas } from '../../utils/helpers';
 import Header from './Header';
 import TotalStock from './TotalStock';
 import DateRangeFilter from './DateRangeFilter';
@@ -289,22 +289,25 @@ const Dashboard = ({ userName, onLogout }) => {
   };
 
   const processTopCustomers = (sales) => {
-    const customerMap = {};
-    console.log("ddhjhfh", sales);
-    
-    sales.forEach(s => {
-      const customer = s.customer || 'Walk-in';
-      if (!customerMap[customer]) {
-        customerMap[customer] = { name: customer, dabbas: 0, packets: 0 };
-      }
-      customerMap[customer].dabbas += toTotalDabbas(s.packets);
-      customerMap[customer].packets = s.packets;
-    });
+  const customerMap = {};
 
-    return Object.values(customerMap)
-      .sort((a, b) => b.dabbas - a.dabbas)
-      .slice(0, 5);
-  };
+  sales.forEach(s => {
+    const customer = (s.customer || 'Walk-in').trim(); // also trims "Baramunda " -> "Baramunda"
+    if (!customerMap[customer]) {
+      customerMap[customer] = { name: customer, dabbas: 0 };
+    }
+    customerMap[customer].dabbas += toTotalDabbas(s.packets);
+  });
+
+  return Object.values(customerMap)
+    .map(c => ({
+      ...c,
+      ...fromTotalDabbas(c.dabbas), // adds { packets, dabbas: remainder }
+      totalDabbas: c.dabbas,
+    }))
+    .sort((a, b) => b.totalDabbas - a.totalDabbas)
+    .slice(0, 5);
+};
 
   // Manual refresh handler (passes current state values explicitly)
   const handleRefresh = useCallback(() => {

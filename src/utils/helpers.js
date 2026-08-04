@@ -7,10 +7,20 @@ export const formatDate = (date) => {
   return `${year}-${month}-${day}`;
 };
 
+// Converts a "packets.dabbas" value (e.g. 9.06 = 9 packets + 6 dabbas) into total dabbas.
+// Rounds to 2 decimal places first to avoid float noise like 9.06 - 9 = 0.05999999999999872.
 export const toTotalDabbas = (packetValue) => {
   const packets = Math.floor(packetValue);
-  const dabbas = Math.round((packetValue - packets) * 100);
+  const decimalPart = Math.round((packetValue - packets) * 100) / 100;
+  const dabbas = Math.round(decimalPart * 100); // .1 -> 10, .06 -> 6, .15 -> 15
   return packets * 16 + dabbas;
+};
+
+// Converts a total dabba count back into { packets, dabbas } for display.
+export const fromTotalDabbas = (totalDabbas) => {
+  const packets = Math.floor(totalDabbas / 16);
+  const dabbas = totalDabbas % 16;
+  return { packets, dabbas };
 };
 
 export const formatCurrency = (amount) => {

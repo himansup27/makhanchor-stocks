@@ -15,7 +15,7 @@ const TopCustomersSection = ({ customers }) => {
     );
   }
 
-  const maxDabbas = customers[0]?.dabbas || 1;
+  const maxDabbas = customers[0]?.totalDabbas || 1;
 
   return (
     <div className="top-customers-section glass-card">
@@ -31,18 +31,19 @@ const TopCustomersSection = ({ customers }) => {
               <div className="customer-header">
                 <span className="customer-name">{customer.name}</span>
                 <span className="customer-packets">
-                  {customer.packets} packets
+                  {customer.packets} packet{customer.packets !== 1 ? 's' : ''}
+                  {customer.dabbas > 0 ? ` ${customer.dabbas} dabba${customer.dabbas !== 1 ? 's' : ''}` : ''}
                 </span>
               </div>
               <div className="customer-progress">
                 <div
                   className="progress-bar"
                   style={{
-                    width: `${(customer.dabbas / maxDabbas) * 100}%`,
+                    width: `${(customer.totalDabbas / maxDabbas) * 100}%`,
                   }}
                 ></div>
               </div>
-              <div className="customer-dabbas">{customer.dabbas} dabbas</div>
+              <div className="customer-dabbas">{customer.totalDabbas} dabbas total</div>
             </div>
           </div>
         ))}
